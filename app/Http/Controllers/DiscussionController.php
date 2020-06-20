@@ -11,4 +11,9 @@ class DiscussionController extends Controller
         $discussions = Discussion::all();
         return view('discussions.index', compact('discussions'));
     }
+
+    public function show(Discussion $discussion, $slug)
+    {
+        return view('discussions.show', compact('discussion'));
+    }
 }

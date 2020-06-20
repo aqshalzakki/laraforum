@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="#">join the discussion</a>
+                    <a href="{{ route('discussions.index') }}">join the discussion</a>
                 </div>
             </div>
         </div>

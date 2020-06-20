@@ -19,7 +19,7 @@ class CreateDiscussionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('category_id');
             $table->string('title', 100);
-            $table->string('body', 100);
+            $table->text('body');
 
             $table->timestamps();
         });
