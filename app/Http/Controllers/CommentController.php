@@ -8,6 +8,11 @@ use App\Models\Discussion;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');        
+    }
+
     public function store(Store $request, Discussion $discussion)
     {
         $commentData = array_merge($request->only('body'), [
@@ -16,6 +21,6 @@ class CommentController extends Controller
 
         $discussion->comments()->create($commentData);
 
-        return back()->withSuccessMessage('Your comment has been added!');
+        return back()->with('successMessage', 'Your comment has been added!');
     }
 }

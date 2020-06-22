@@ -8,7 +8,12 @@
                 <textarea class="form-control" name="body"></textarea>
             </div>
 
-            <button class="btn btn-primary">Submit Comment</button>
+            @if(auth()->check())
+                <button class="btn btn-primary">Submit Comment</button>
+
+                @else
+                <a class="btn btn-primary" href="{{ route('login') }}">Login to Comment</a>
+            @endif
         </form>
     </div>
 </div>

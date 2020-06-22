@@ -8,7 +8,7 @@ class Store extends FormRequest
 {
     public function authorize()
     {
-        return auth()->check();
+        return 1;
     }
 
     public function rules()
