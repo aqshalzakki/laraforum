@@ -20,4 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/discussions/{discussion}-{slug}', 'DiscussionController@show')->name('discussions.show');
+
 Route::resource('discussions', 'DiscussionController');
+Route::resource('discussions.comments', 'CommentController')
+    ->only(['store', ]);

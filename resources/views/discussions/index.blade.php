@@ -7,6 +7,10 @@
             <div class="card">
                 <div class="card-header">All Discussions</div>
                 
+                <a class="ml-3 mt-3" href="{{ route('discussions.create') }}">
+                    <button class="btn btn-primary">Create new Discussion</button>
+                </a>
+
                 <div class="card-body">
                     <ul class="list-group">
                         @forelse($discussions as $discussion)
