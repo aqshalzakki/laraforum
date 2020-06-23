@@ -15,7 +15,7 @@
                     <ul class="list-group">
                         @forelse($discussions as $discussion)
                             <li class="list-group-item">
-                                <a href="{{ route('discussions.show', "$discussion->id-$discussion->slug") }}">
+                                <a href="{{ route('discussions.show', [$discussion->id, $discussion->slug]) }}">
                                     {{ $discussion->title }}
                                 </a>
                             </li>
