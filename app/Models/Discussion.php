@@ -13,10 +13,6 @@ class Discussion extends Model
         'user_id', 'category_id', 'title', 'body'
     ];
 
-    // protected $with = [
-    //     'user'
-    // ];
-
     public function getSlugAttribute()
     {
         return Str::slug($this->title);

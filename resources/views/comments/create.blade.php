@@ -5,7 +5,7 @@
             @csrf
             <div class="form-group">
                 <label for="comment">Your Comment</label>
-                <textarea class="form-control" name="body"></textarea>
+                <textarea id="commentBody" class="form-control" name="body">{{ old('body') }}</textarea>
             </div>
 
             @if(auth()->check())

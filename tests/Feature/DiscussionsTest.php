@@ -47,12 +47,7 @@ class DiscussionsTest extends TestCase
     /** @test */
     public function users_can_see_specific_discussion()
     {
-        $discussion = Discussion::create([
-            'user_id' => $this->makeUser()->id,
-            'category_id' => $this->makeCategory()->id,
-            'title' => 'Cool Discussion',
-            'body' => 'how to do that guys?'
-        ]);
+        $discussion = $this->makeDiscussion();
 
         $response = $this->get(route('discussions.show', [
             $discussion->id, $discussion->slug
@@ -62,12 +57,53 @@ class DiscussionsTest extends TestCase
         $response->assertSeeText("discussed by {$discussion->user->name}");
     }
 
+    /** @test */
+    public function authenticated_user_can_delete_their_own_discussion()
+    {
+        $this->withoutExceptionHandling();
+        $this->actingAs($user = $this->makeUser());
 
+        $discussion = $this->makeDiscussion($user);
+
+        $response = $this->delete(route('discussions.destroy', $discussion->id));
+    
+        $discussions = Discussion::all();
+
+        $this->assertCount(0, $discussions, 'The discussion is haven\'t deleted yet!');
+        $this->assertNull($discussions->fresh()->first());
+        
+        $response->assertRedirect(route('discussions.index'));
+    }
+
+    /** @test */
+    public function only_appropriate_user_can_delete_owned_discussion()
+    {
+        $user = $this->makeUser();
+        $discussion = $this->makeDiscussion($user);
+        
+        $this->actingAs($anotherUser = $this->makeUser());
+
+        $response = $this->delete(route('discussions.destroy', $discussion->id));
+
+        $response->assertNotFound();
+        $this->assertCount(1, Discussion::all());
+        $this->assertNotNull($discussion->id);
+    }
 
     private function makeUser(array $customAttributes = [])
     {
         return factory(User::class)
             ->create($customAttributes);
+    }
+
+    private function makeDiscussion($user = null)
+    {
+        return Discussion::create([
+            'user_id' => $user->id ?? $this->makeUser()->id,
+            'category_id' => $this->makeCategory()->id,
+            'title' => 'Cool Discussion',
+            'body' => 'how to do that guys?'
+        ]);
     }
 
     private function makeCategory(array $customAttributes = [])

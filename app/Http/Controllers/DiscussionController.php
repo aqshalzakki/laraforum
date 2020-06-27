@@ -45,4 +45,14 @@ class DiscussionController extends Controller
         return redirect()->route('discussions.index')
             ->withMessage('Discussion created successfully!');
     }
+
+    public function destroy(Discussion $discussion)
+    {
+        $discussion->where('id', $discussion->id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail()
+            ->delete();
+
+        return redirect()->route('discussions.index');
+    }
 }

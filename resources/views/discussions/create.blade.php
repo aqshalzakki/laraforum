@@ -10,15 +10,17 @@
                 <div class="card-body">
                     <form method="post" action="{{ route('discussions.store') }}">
                         @csrf
-                        <div class="form-group mb-0">
+                        <div class="form-group mb-3">
                             <label for="title">Title :</label>
-                            <input value="{{ old('title') }}" name="title" class="form-control @error('title') is-invalid @enderror" type="text" id="title">
-                            <small class="text-danger ml-1">@error('title') {{ $message }} @enderror</small>
+                            <input required value="{{ old('title') }}" name="title" class="form-control @error('title') is-invalid @enderror" type="text" id="title">
+                            @if($errors->has('title'))
+                                <small class="text-danger ml-1">@error('title') {{ $message }} @enderror</small>
+                            @endif
                         </div>
 
                         <div class="form-group mb-0">
                             <label for="body">Body :</label>
-                            <textarea name="body" class="form-control @error('body') is-invalid @enderror" id="body"></textarea>
+                            <textarea name="body" class="form-control @error('body') is-invalid @enderror" id="discussionBody">{{ old('body') }}</textarea>
                             <small class="text-danger ml-1">@error('body') {{ $message }} @enderror</small>
                         </div>
 

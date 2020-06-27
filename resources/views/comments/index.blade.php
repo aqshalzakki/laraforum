@@ -12,10 +12,10 @@
             <ul class="list-group">
                 @foreach($discussion->comments as $comment)
                     <li class="list-group-item">
-                        <b>{{ $comment->user->name }}</b>, <br>
-                        {{ $comment->body }}
+                        <b>{{ $comment->user->name }}</b>: <br>
+                        {!! $comment->body !!}
                         <small class="float-right">
-                            <b>{{ $comment->created_at }}</b>
+                            <b>{{ $comment->created_at->diffForHumans() }}</b>
                         </small>
                     </li>
                 @endforeach
