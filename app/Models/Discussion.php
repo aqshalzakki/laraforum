@@ -28,4 +28,11 @@ class Discussion extends Model
         return $this->hasMany(Comment::class)
             ->orderBy('created_at', 'desc');
     }
+
+    public function getByIdAndAuthenticatedUser(int $id): Discussion
+    {
+        return $this->where('id', $this->id)
+                ->where('user_id', auth()->id())
+                ->firstOrFail();
+    }
 }

@@ -48,9 +48,7 @@ class DiscussionController extends Controller
 
     public function destroy(Discussion $discussion)
     {
-        $discussion->where('id', $discussion->id)
-            ->where('user_id', auth()->id())
-            ->firstOrFail()
+        $discussion->getByIdAndAuthenticatedUser($discussion->id)
             ->delete();
 
         return redirect()->route('discussions.index');
