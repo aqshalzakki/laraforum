@@ -31,7 +31,7 @@ class Discussion extends Model
 
     public function getByIdAndAuthenticatedUser(int $id): Discussion
     {
-        return $this->where('id', $this->id)
+        return $this->where('id', $id)
                 ->where('user_id', auth()->id())
                 ->firstOrFail();
     }
